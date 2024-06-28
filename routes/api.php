@@ -14,8 +14,8 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('tasks')->controller(TaskController::class)->group(function () {
         Route::post('/', 'store');
-        Route::put('/{task}', 'update');
-        Route::patch('/{task}/complete', 'complete');
-        Route::delete('/{task}', 'destroy');
+        Route::put('/{task}', 'update')->can('manage', 'task');
+        Route::patch('/{task}/complete', 'complete')->can('manage', 'task');
+        Route::delete('/{task}', 'destroy')->can('manage', 'task');
     });
 });

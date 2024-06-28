@@ -10,9 +10,9 @@ use LogicException;
 
 class CouldNotCompleteTask extends LogicException
 {
-    public static function because(string $message): static
+    public static function because(string $message): self
     {
-        return new static($message);
+        return new self($message);
     }
 
     public function render(Request $request): false|JsonResponse

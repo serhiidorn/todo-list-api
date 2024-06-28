@@ -14,5 +14,6 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('tasks')->controller(TaskController::class)->group(function () {
         Route::post('/', 'store');
+        Route::put('/{task}', 'update');
     });
 });

@@ -15,5 +15,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('tasks')->controller(TaskController::class)->group(function () {
         Route::post('/', 'store');
         Route::put('/{task}', 'update');
+        Route::patch('/{task}/complete', 'complete');
     });
 });

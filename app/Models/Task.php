@@ -50,4 +50,23 @@ class Task extends Model
     {
         return $this->belongsTo(self::class, 'task_id');
     }
+
+    public function hasUncompletedSubtasks(): bool
+    {
+        return $this->subtasks()->whereStatus(Status::TODO)->exists();
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === Status::DONE;
+    }
+
+    public function complete(): bool
+    {
+        $this->status = Status::DONE;
+
+        $this->completed_at = now();
+
+        return $this->save();
+    }
 }

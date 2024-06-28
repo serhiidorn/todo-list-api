@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\CompleteTask;
 use App\Actions\CreateTask;
 use App\Actions\UpdateTask;
 use App\DTOs\CreateTaskDTO;
@@ -44,5 +45,12 @@ class TaskController extends Controller
         );
 
         return TaskResource::make($task);
+    }
+
+    public function complete(CompleteTask $completeTask, Task $task): TaskResource
+    {
+        return TaskResource::make(
+            $completeTask->handle($task)
+        );
     }
 }

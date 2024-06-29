@@ -13,6 +13,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('tasks')->controller(TaskController::class)->group(function () {
+        Route::get('/', 'index');
         Route::post('/', 'store');
         Route::put('/{task}', 'update')->can('manage', 'task');
         Route::patch('/{task}/complete', 'complete')->can('manage', 'task');

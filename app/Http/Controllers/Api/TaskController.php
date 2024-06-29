@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Actions\CompleteTask;
 use App\Actions\CreateTask;
 use App\Actions\DeleteTask;
+use App\Actions\GetFilteredTasks;
 use App\Actions\UpdateTask;
 use App\DTOs\CreateTaskDTO;
 use App\DTOs\UpdateTaskDTO;
@@ -17,9 +18,21 @@ use App\Http\Resources\TaskResource;
 use App\Models\Enums\Priority;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    public function index(Request $request, GetFilteredTasks $getFilteredTasks)
+    {
+        $tasks = $getFilteredTasks->handle(
+            userId: (int)$request->user()->id,
+            queryFilters: $request->input('filter'),
+            queryOrders: $request->input('order')
+        );
+
+        return TaskResource::collection($tasks);
+    }
+
     public function store(TaskStoreRequest $request, CreateTask $createTask): TaskResource
     {
         $task = $createTask->handle(

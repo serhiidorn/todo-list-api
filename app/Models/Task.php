@@ -52,6 +52,11 @@ class Task extends Model
         return $this->hasMany(self::class);
     }
 
+    public function descendants(): HasMany
+    {
+        return $this->hasMany(self::class)->with('descendants');
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'task_id');

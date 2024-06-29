@@ -20,7 +20,6 @@ class TaskStoreRequest extends FormRequest
             'priority' => ['required', new Enum(Priority::class)],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'completed_at' => ['nullable', 'date'],
         ];
     }
 }

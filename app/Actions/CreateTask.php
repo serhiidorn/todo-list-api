@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\DTOs\CreateTaskDTO;
-use App\Models\Enums\Status;
 use App\Models\Task;
 
 class CreateTask
@@ -13,10 +12,10 @@ class CreateTask
     public function handle(CreateTaskDTO $dto, int $userId): Task
     {
         return Task::create([
-            'status' => Status::TODO,
             'priority' => $dto->priority,
             'title' => $dto->title,
             'description' => $dto->description,
+            'parent_id' => $dto->parentId,
             'user_id' => $userId,
         ]);
     }
